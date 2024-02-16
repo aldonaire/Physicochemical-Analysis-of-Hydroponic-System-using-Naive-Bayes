@@ -1,0 +1,139 @@
+{% extends "index.html" %} {% block title %}Hydroponic Monitoring System{% endblock %}
+
+{% block statuscolorph %}
+{% if data.ph>6.2 or data.ph<5.5 %}  
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+{% block compareph %}
+{% if data.ph>data.phdiff %}
+<i class="mdi mdi-menu-up">
+{% elif data.ph<data.phdiff%}
+<i class="mdi mdi-menu-down">
+{%else%}
+<i class="mdi mdi-minus">
+{% endif %}
+{% endblock %}
+
+{% block statuscolorec %}
+{% if data.ec>2.5 or data.ec<1.2 %}
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+{% block compareec %}
+{% if data.ec>data.ecdiff %}
+<i class="mdi mdi-menu-up">
+{% elif data.ec<data.ecdiff%}
+<i class="mdi mdi-menu-down">
+{%else%}
+<i class="mdi mdi-minus">
+{% endif %}
+{% endblock %}}
+
+{% block statuscolorwt %}
+{% if data.wt>22 or data.wt<18 %}
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+{% block comparewt %}
+{% if data.wt>data.wtdiff %}
+<i class="mdi mdi-menu-up">
+{% elif data.wt<data.wtdiff%}
+<i class="mdi mdi-menu-down">
+{%else%}
+<i class="mdi mdi-minus">
+{% endif %}
+{% endblock %}
+
+{% block statuscolorphnb %}
+{% if data.NB>=100 %}
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+{% block statuscolorecnb %}
+{% if not data.NB in (0,10,20,100,110,120,200,210,220) %}
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+{% block statuscolorwtnb %}
+{% if not data.NB in (0,1,2,100,101,102,200,201,202) %}
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+
+{% block statuscolorphsvm %}
+{% if data.SVM>=100 %}
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+{% block statuscolorecsvm %}
+{% if not data.SVM in (0,10,20,100,110,120,200,210,220) %}
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+{% block statuscolorwtsvm %}
+{% if not data.SVM in (0,1,2,100,101,102,200,201,202) %}
+<p class="text-danger d-flex">
+{% else %}
+<p class="text-success d-flex">
+{% endif %}
+{% endblock %}
+
+{% block phover %}{{data.ph}}{% endblock %} {% block phoverdiff %}{{ data.phdiff }}{% endblock %}
+{% block ecover %}{{data.ec}}{% endblock %} {% block ecoverdiff %}{{ data.ecdiff }}{% endblock %}
+{% block wtover %}{{data.wt}}{% endblock %} {% block wtoverdiff %}{{ data.wtdiff }}{% endblock %}
+{% block captime %}{{ data.date }}{% endblock %}
+
+{% block statusnb %}
+{% if data.NB==0 %}
+<h3 class="text-success rate-percentage">Normal Status</h3>
+{% else %}
+<h3 class="text-danger rate-percentage">Abnormal Status</h3>
+{% endif %}
+{% endblock %}
+
+{% block statussvm %}
+{% if data.SVM==0 %}
+<h3 class="text-success rate-percentage">Normal Status</h3>
+{% else %}
+<h3 class="text-danger rate-percentage">Abnormal Status</h3>
+{% endif %}
+{% endblock %}
+
+
+{% block nbrecommendation %}
+    <h2 class="welcome-text text-black fw-bold">{{data.NB_title}}</h2>
+    <br/>
+    <h4 class="welcome-sub-text" style="line-height: 1.8">{{data.NB_stat}}</h4>
+
+{% endblock %}
+{% block svmrecommendation %}
+    <h2 class="welcome-text text-black fw-bold">{{data.SVM_title}}</h2>
+    <br/>
+    <h4 class="welcome-sub-text" style="line-height: 1.8">{{data.SVM_stat}}</h4>
+{% endblock %}
+

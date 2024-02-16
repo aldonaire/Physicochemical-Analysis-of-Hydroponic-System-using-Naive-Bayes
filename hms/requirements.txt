@@ -1,0 +1,12 @@
+flask
+numpy
+scikit-learn
+scipy 
+matplotlib 
+ipython 
+jupyter 
+pandas 
+sympy 
+nose
+mysqlclient
+Flask-SQLAlchemy

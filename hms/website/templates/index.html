@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Hydroponic Monitoring System Dashboard{% endblock %}</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='website/vendors/feather/feather.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='website/vendors/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='website/vendors/ti-icons/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='website/vendors/typicons/typicons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='website/vendors/simple-line-icons/css/simple-line-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='website/vendors/css/vendor.bundle.base.css') }}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='website/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='website/js/select.dataTables.min.css') }}">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='website/css/vertical-layout-light/style.css') }}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='website/images/HydroLogo.png') }}" />
+</head>
+<body>
+    <div class="container-scroller"> 
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+            <div class="me-3">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                    <span class="icon-menu"></span>
+                </button>
+            </div>
+            <div>
+                <a class="navbar-brand brand-logo" href="/">
+                    <img src="{{ url_for('static', filename='website/images/HydroLogo - Named.png') }}" alt="logo" style="height:58px"/>
+                </a>
+                <a class="navbar-brand brand-logo-mini" href="/">
+                    <img src="{{ url_for('static', filename='website/images/HydroLogo.png') }}" alt="logo" style="height:42px"/>
+                </a>
+            </div>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-top"> 
+            <ul class="navbar-nav">
+                <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
+                    <h1 class="welcome-text">Welcome to <span class="text-black fw-bold">Hydroponic Monitoring System</span></h1>
+                    <h3 class="welcome-sub-text">This is the status of the Hydroponics</h3>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item d-none d-lg-block">
+                    <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+                        <span class="input-group-addon input-group-prepend border-right">
+                            <span class="icon-calendar input-group-text calendar-icon"></span>
+                        </span>
+                        <input type="text" class="form-control">
+                    </div>
+                </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+            </button>
+        </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <!-- <div class="theme-setting-wrapper">
+            <div id="settings-trigger"><i class="ti-settings"></i></div>
+            <div id="theme-settings" class="settings-panel">
+            <i class="settings-close ti-close"></i>
+            <p class="settings-heading">SIDEBAR SKINS</p>
+            <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border me-3"></div>Light</div>
+            <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border me-3"></div>Dark</div>
+            <p class="settings-heading mt-2">HEADER SKINS</p>
+            <div class="color-tiles mx-0 px-4">
+                <div class="tiles success"></div>
+                <div class="tiles warning"></div>
+                <div class="tiles danger"></div>
+                <div class="tiles info"></div>
+                <div class="tiles dark"></div>
+                <div class="tiles default"></div>
+            </div>
+            </div>
+        </div>
+        <div id="right-sidebar" class="settings-panel">
+            <i class="settings-close ti-close"></i>
+        </div> -->
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <!-- Monitoring -->
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="/">
+                <i class="mdi mdi-grid-large menu-icon"></i>
+                <span class="menu-title">Monitor</span>
+                </a>
+            </li> -->
+            <li class="nav-item nav-category">Data Analytics</li>
+            <li class="nav-item">
+                <a class="nav-link btn-info btn-outline-dark" id="predict" href="/">
+                <i class="menu-icon mdi mdi-chart-line"></i>
+                <span class="menu-title">Predict</span>
+                </a>
+                <!-- <a class="nav-link" href="/displaycoll">
+                <i class="menu-icon mdi mdi-table"></i>
+                <span class="menu-title">Dataset Now</span>
+                </a> -->
+                <!-- <div class="collapse" id="charts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="website/pages/charts/naive-bayes.html">Naive Bayes</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="website/pages/charts/chartjs.html">SVM</a></li>
+                </ul>
+                </div> -->
+            </li>
+            </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+            <div class="row">
+                <div class="col-sm-12">
+                <div class="home-tab">
+                    <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                        <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#naive" role="tab" aria-selected="false">Naive Bayes</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#svm" role="tab" aria-selected="false">Support Vector Machine</a>
+                        </li> -->
+                        
+                        <li class="nav-item">
+                        <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#svm" role="tab" aria-selected="false">Support Vector Machine</a>
+                        </li>
+                    </ul>
+                    </div>
+                    <div class="tab-content tab-content-basic">
+                    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview"> 
+                        <div class="row">
+                        <div class="col-sm-12">
+                            <div class="statistics-details d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="statistics-title">pH Level</p>
+                                <h3 class="rate-percentage">{% block phover %}{% endblock %}</h3>
+                                
+                                {% block statuscolorph %}{% endblock %}{% block compareph %}{% endblock %}</i><span>{% block phoverdiff %}{% endblock %}</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Nutrient Count</p>
+                                <h3 class="rate-percentage">{% block ecover %}{% endblock %} mS/cm</h3>
+                                {% block statuscolorec %}{% endblock %}{% block compareec %}{% endblock %}</i><span>{% block ecoverdiff %}{% endblock %} mS/cm</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Water Temperature</p>
+                                <h3 class="rate-percentage">{% block wtover %}{% endblock %} °C</h3>
+                                {% block statuscolorwt %}{% endblock %}{% block comparewt %}{% endblock %}</i><span>{% block wtoverdiff %}{% endblock %} °C</span></p>
+                            </div>
+                            <!-- <div>
+                                <p class="statistics-title">Hydroponic Status</p>
+                                <h3 class="text-danger rate-percentage">Abnormal Status</h3>
+                                <br/>
+                            </div> -->
+                            <div class="d-none d-md-block">
+                                <p class="statistics-title">Time of Capture</p>
+                                <h3 class="rate-percentage">{% block captime %}{% endblock %}</h3>
+                                <br/>
+                            </div>
+                            </div>
+
+                        </div>
+                        </div> 
+                        <!-- <div class="row">
+                        <div class="col-lg d-flex flex-column">
+                            <button type="button" class="btn btn-info btn-outline-primary btn-icon btn-lg">
+                                <i class="ti-bar-chart-alt text-dark"> Predict Hydroponic Status</i>                          
+                            </button>
+                        </div>
+                        </div> -->
+                        <div class="row">
+                        <div class="col-lg-8 d-flex flex-column">
+                            <div class="row flex-grow">
+                            <div class="col-12 col-lg-4 col-lg-12 grid-margin stretch-card">
+                                <div class="card card-rounded">
+                                <div class="card-body">
+                                    <div class="d-sm-flex justify-content-between align-items-start">
+                                    <div>
+                                    <h4 class="card-title card-title-dash">Recent 14 Hydroponic Parameters</h4>
+                                    <br/>
+                                    </div>
+                                    <div id="performance-line-legend"></div>
+                                    </div>
+                                    <div class="chartjs-wrapper mt-5">
+                                    <canvas id="performaneLine"></canvas>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 d-flex flex-column">
+                        <div class="row flex-grow">
+                            <div class="col-lg grid-margin stretch-card">
+                                <div class="card card-rounded">
+                                  <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="card-title card-title-dash">Current Captured Hydroponic Parameters</h4>
+                                    </div>
+                                    <canvas id="barChart"></canvas>
+                                    </div></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div> 
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-lg grid-margin grid-margin-lg-0 stretch-card">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h4 class="card-title">Scatter chart</h4>
+                                    <canvas id="scatterChart"></canvas>
+                                  </div>
+                                </div>
+                              </div>
+                        </div> -->
+                    </div>
+                    <div class="tab-pane fade show" id="naive" role="tabpanel" aria-labelledby="naive"> 
+                        <div class="row">
+                        <div class="col-sm-12">
+                            <div class="statistics-details d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="statistics-title">pH Level</p>
+                                <h3 class="rate-percentage">{{ self.phover() }}</h3>
+                                {% block statuscolorphnb %}{% endblock %}{{ self.compareph() }}</i><span>{{ self.phoverdiff() }}</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Nutrient Count</p>
+                                <h3 class="rate-percentage">{{ self.ecover() }} mS/cm</h3>
+                                {% block statuscolorecnb %}{% endblock %}{{ self.compareec() }}</i><span>{{ self.ecoverdiff() }} mS/cm</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Water Temperature</p>
+                                <h3 class="rate-percentage">{{ self.wtover() }} °C</h3>
+                                {% block statuscolorwtnb %}{% endblock %}{{ self.comparewt() }}</i><span>{{ self.wtoverdiff() }} °C</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Hydroponic Status</p>
+                                {% block statusnb %}{% endblock %}
+                                <br/>
+                            </div>
+                            <div class="d-none d-md-block">
+                                <p class="statistics-title">Time of Capture</p>
+                                <h3 class="rate-percentage">{{ self.captime() }}</h3>
+                                <br/>
+                            </div>
+                            </div>
+                        </div>
+                        </div> 
+                        <div class="card card-rounded">
+                            <div class="card-body">
+                            {% block nbrecommendation %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show" id="svm" role="tabpanel" aria-labelledby="svm"> 
+                        <div class="row">
+                        <div class="col-sm-12">
+                            <div class="statistics-details d-flex align-items-center justify-content-between">
+                            <div>
+                                <p class="statistics-title">pH Level</p>
+                                <h3 class="rate-percentage">{{ self.phover() }}</h3>
+                                {% block statuscolorphsvm %}{% endblock %}{{ self.compareph() }}</i><span>{{ self.phoverdiff() }}</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Nutrient Count</p>
+                                <h3 class="rate-percentage">{{ self.ecover() }} mS/cm</h3>
+                                {% block statuscolorecsvm %}{% endblock %}{{ self.compareec() }}</i><span>{{ self.ecoverdiff() }} mS/cm</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Water Temperature</p>
+                                <h3 class="rate-percentage">{{ self.wtover() }} °C</h3>
+                                {% block statuscolorwtsvm %}{% endblock %}{{ self.comparewt() }}</i><span>{{ self.wtoverdiff() }} °C</span></p>
+                            </div>
+                            <div>
+                                <p class="statistics-title">Hydroponic Status</p>
+                                {% block statussvm %}{% endblock %}
+                                <br/>
+                            </div>
+                            <div class="d-none d-md-block">
+                                <p class="statistics-title">Time of Capture</p>
+                                <h3 class="rate-percentage">{{ self.captime() }}</h3>
+                                <br/>
+                            </div>
+                            </div>
+                        </div>
+                        </div> 
+                        <div class="card card-rounded">
+                            <div class="card-body">
+                            {% block svmrecommendation %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Capstone Project.</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">By: AL, Donaire and JR, Manco</span>
+            </div>
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+
+    <!-- plugins:js -->
+    <script src="{{ url_for('static', filename='website/vendors/js/vendor.bundle.base.js') }}"></script>
+    <!-- endinject -->
+
+    <!-- Plugin js for this page -->
+    <script src="{{ url_for('static', filename='website/vendors/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='website/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='website/vendors/progressbar.js/progressbar.min.js') }}"></script>
+
+    <!-- End plugin js for this page -->
+
+    <!-- inject:js -->
+    <script src="{{ url_for('static', filename='website/js/off-canvas.js') }}"></script>
+    <script src="{{ url_for('static', filename='website/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ url_for('static', filename='website/js/template.js') }}"></script>
+    <script src="{{ url_for('static', filename='website/js/settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='website/js/todolist.js') }}"></script>
+    <!-- endinject -->
+
+    <!-- Custom js for this page-->
+    <script src="{{ url_for('static', filename='website/js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='website/js/Chart.roundedBarCharts.js') }}"></script>
+    <!-- End custom js for this page-->
+
+    <!-- Temporary till I find a way to add dashboard.js route arguments from flask in there -->
+    <script>
+        if ($("#performaneLine").length) {
+        var graphGradient = document.getElementById("performaneLine").getContext('2d');
+        var graphGradient2 = document.getElementById("performaneLine").getContext('2d');
+        var graphGradient3 = document.getElementById("performaneLine").getContext('2d');
+
+        var saleGradientBg = graphGradient.createLinearGradient(5, 0, 5, 100);
+        saleGradientBg.addColorStop(0, 'rgba(26, 115, 232, 0.18)');
+        saleGradientBg.addColorStop(1, 'rgba(26, 115, 232, 0.02)');
+        
+        var saleGradientBg2 = graphGradient2.createLinearGradient(100, 0, 50, 150);
+        saleGradientBg2.addColorStop(0, 'rgba(0, 208, 255, 0.19)');
+        saleGradientBg2.addColorStop(1, 'rgba(0, 208, 255, 0.03)');
+
+        var saleGradientBg3 = graphGradient3.createLinearGradient(150, 0, 100, 200);
+        saleGradientBg3.addColorStop(0, 'rgba(249, 39, 30, 0.19)');
+        saleGradientBg3.addColorStop(1, 'rgba(249, 39, 30, 0.03)');
+
+        var salesTopData = {
+            labels: {{labels | safe}},
+            datasets: [{
+                label: 'pH Level',
+                data: {{phdata | safe}},
+                backgroundColor: saleGradientBg,
+                borderColor: [
+                    '#1F3BB3',
+                ],
+                borderWidth: 1.5,
+                fill: true, // 3: no fill
+                pointBorderWidth: 1,
+                pointRadius: [4, 4, 4, 4, 4,4, 4, 4, 4, 4,4, 4, 4, 4],
+                pointHoverRadius: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2, 2, 2, 2],
+                pointBackgroundColor: ['#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3','#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3','#1F3BB3', '#1F3BB3', '#1F3BB3', '#1F3BB3','#1F3BB3', '#1F3BB3'],
+                pointBorderColor: ['#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff'],
+            },{
+                label: 'Nutrients',
+                data: {{ecdata | safe}},
+                backgroundColor: saleGradientBg2,
+                borderColor: [
+                    '#52CDFF',
+                ],
+                borderWidth: 1.5,
+                fill: true, // 3: no fill
+                pointBorderWidth: 1,
+                pointRadius: [4, 4, 4, 4, 4,4, 4, 4, 4, 4,4, 4, 4, 4],
+                pointHoverRadius: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2, 2, 2, 2],
+                pointBackgroundColor: ['#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF','#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF','#52CDFF', '#52CDFF', '#52CDFF', '#52CDFF','#52CDFF', '#52CDFF'],
+                pointBorderColor: ['#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff'],
+            },{
+            label: 'Temperature',
+            data: {{wtdata | safe}},
+            backgroundColor: saleGradientBg3,
+            borderColor: [
+                '#F95F53',
+            ],
+            borderWidth: 1.5,
+            fill: true, // 3: no fill
+            pointBorderWidth: 1,
+            pointRadius: [4, 4, 4, 4, 4,4, 4, 4, 4, 4,4, 4, 4, 4],
+            pointHoverRadius: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2, 2, 2, 2],
+            pointBackgroundColor: ['#F95F53', '#F95F53', '#F95F53', '#F95F53','#F95F53', '#F95F53', '#F95F53', '#F95F53','#F95F53', '#F95F53', '#F95F53', '#F95F53','#F95F53', '#F95F53'],
+                pointBorderColor: ['#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff'],
+      }]
+      };
+  
+      var salesTopOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+          scales: {
+              yAxes: [{
+                  gridLines: {
+                      display: true,
+                      drawBorder: false,
+                      color:"#F0F0F0",
+                      zeroLineColor: '#F0F0F0',
+                  },
+                  ticks: {
+                    beginAtZero: false,
+                    autoSkip: true,
+                    maxTicksLimit: 4,
+                    fontSize: 10,
+                    color:"#6B778C"
+                  }
+              }],
+              xAxes: [{
+                gridLines: {
+                    display: false,
+                    drawBorder: false,
+                },
+                ticks: {
+                  beginAtZero: false,
+                  autoSkip: true,
+                  maxTicksLimit: 7,
+                  fontSize: 10,
+                  color:"#6B778C"
+                }
+            }],
+          },
+          legend:false,
+          legendCallback: function (chart) {
+            var text = [];
+            text.push('<div class="chartjs-legend"><ul>');
+            for (var i = 0; i < chart.data.datasets.length; i++) {
+              console.log(chart.data.datasets[i]); // see what's inside the obj.
+              text.push('<li>');
+              text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+              text.push(chart.data.datasets[i].label);
+              text.push('</li>');
+            }
+            text.push('</ul></div>');
+            return text.join("");
+          },
+          
+          elements: {
+              line: {
+                  tension: 0.4,
+              }
+          },
+          tooltips: {
+              backgroundColor: 'rgba(31, 59, 179, 1)',
+          }
+      }
+      var salesTop = new Chart(graphGradient, {
+          type: 'line',
+          data: salesTopData,
+          options: salesTopOptions
+      });
+      document.getElementById('performance-line-legend').innerHTML = salesTop.generateLegend();}
+    </script>
+    <!-- BARGRAPH -->
+    <script>
+    var data = {
+    labels: ["pH Value", "Nutrients", "Temperature"],
+    datasets: [{
+      data: {{barchart | safe}},
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)'
+      ],
+      borderWidth: 1,
+      fill: false
+        }]
+    };
+    var options = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
+    legend: {
+      display: false
+    },
+    elements: {
+      point: {
+        radius: 0
+      }
+    }
+    };
+    if ($("#barChart").length) {
+    var barChartCanvas = $("#barChart").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
+    var barChart = new Chart(barChartCanvas, {
+      type: 'bar',
+      data: data,
+      options: options
+        });
+    }
+    </script>
+    <!-- SCATTER -->
+    <!-- <script>
+    var scatterChartData = {
+    datasets: [{
+        label: 'First Dataset',
+        data: [{
+            x: -10,
+            y: 0
+          },
+          {
+            x: 0,
+            y: 3
+          },
+          {
+            x: -25,
+            y: 5
+          },
+          {
+            x: 40,
+            y: 5
+          }
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: 'Second Dataset',
+        data: [{
+            x: 10,
+            y: 5
+          },
+          {
+            x: 20,
+            y: -30
+          },
+          {
+            x: -25,
+            y: 15
+          },
+          {
+            x: -10,
+            y: 5
+          }
+        ],
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.2)',
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)',
+        ],
+        borderWidth: 1
+      }
+    ]
+    }
+
+    var scatterChartOptions = {
+        scales: {
+        xAxes: [{
+            type: 'linear',
+            position: 'bottom'
+        }]
+        }
+    }
+
+    if ($("#scatterChart").length) {
+    var scatterChartCanvas = $("#scatterChart").get(0).getContext("2d");
+    var scatterChart = new Chart(scatterChartCanvas, {
+      type: 'scatter',
+      data: scatterChartData,
+      options: scatterChartOptions
+    });
+    }
+    </script> -->
+    <!-- End Temporary -->
+
+</body>
+
+</html>
+
